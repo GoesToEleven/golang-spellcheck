@@ -3,32 +3,47 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 	"unicode"
 )
 
+const (
+	ValidWordsFileName = "all-words.txt"
+	FileToCheck        = "check-spelling.txt"
+)
+
 func main() {
 	// Read all valid words
-	allWords, err := ReadWords("all-words.txt")
+	allWords, err := readWords(ValidWordsFileName)
 	if err != nil {
-		fmt.Println("Error reading all-words.txt:", err)
-		return
+		log.Fatalf("Error reading %s: %v", ValidWordsFileName, err)
 	}
 
 	// Open the file to check
-	fileToCheck, err := os.Open("check-spelling.txt")
+	fileToCheck, err := os.Open(FileToCheck)
 	if err != nil {
-		fmt.Println("Error opening check-spelling.txt:", err)
+		log.Fatalf("Error opening %s: %v", FileToCheck, err)
+	}
+
+	// Check if the file is empty
+	fileInfo, err := fileToCheck.Stat()
+	if err != nil {
+		log.Fatalf("Error getting file information: %v", err)
+	}
+	if fileInfo.Size() == 0 {
+		log.Println("File is empty. Nothing to check.")
 		return
 	}
+
 	defer fileToCheck.Close()
 
 	checkSpelling(fileToCheck, allWords)
 }
 
-// ReadWords reads a list of words from a file and returns a set.
-func ReadWords(filename string) (map[string]bool, error) {
+// readWords reads a list of words from a file and returns a set.
+func readWords(filename string) (map[string]bool, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		return nil, err
@@ -45,7 +60,6 @@ func ReadWords(filename string) (map[string]bool, error) {
 }
 
 func checkSpelling(f *os.File, allWords map[string]bool) {
-
 	// Create a scanner and read the file line by line.
 	scanner := bufio.NewScanner(f)
 	lineNumber := 0
@@ -65,17 +79,17 @@ func checkSpelling(f *os.File, allWords map[string]bool) {
 	}
 
 	if err := scanner.Err(); err != nil {
-		fmt.Println("Error reading check-spelling.txt:", err)
+		log.Printf("Error reading %s: %v", FileToCheck, err)
 	}
 }
 
-// CleanWord removes digits from the word
+// cleanWord removes digits and specified special characters from the word.
 func cleanWord(word string) string {
 
 	word = strings.ToLower(word)
 	// Remove leading and trailing undesired characters
 	word = strings.Trim(word, "*.,!?\"'()[]{}:;#&+-/=$%<>@_|~")
-	// Remove an leading and trailing spaces
+	// Remove leading and trailing spaces
 	word = strings.TrimSpace(word)
 
 	// Discard word with undesired characters
