@@ -7,7 +7,7 @@ This is a spell checker for the Go programming language. When I looked for a spe
 # Next steps
 
 1. Improve spell checker
-i. refactor, packages, more robust code, etc
+  1. refactor, packages, more robust code, etc
 1. Create a grammar checker
 
 This is all from chatGPT - for inspiration:
