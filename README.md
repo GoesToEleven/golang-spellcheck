@@ -2,13 +2,13 @@
 This is a spell checker for the Go programming language. When I looked for a spell checker for Go, I couldn't find one, so I started this repository. We can all work on this to make it better. I've created the initial basic version. When I used the code here to spell check a document I had already run through Google Drive and Grammarly, I found a legitimate spelling error that both had missed (personaes should be personae), so good progress has been made!
 
 # English words and names
-**I found great sources for all of the words in English.** From Google "The Second Edition of the 20-volume Oxford English Dictionary contains full entries for 171,476 words in current use (and 47,156 obsolete words). Webster's Third New International Dictionary, Unabridged, together with its 1993 Addenda Section, includes some 470,000 entries." From the sources I've found, listed below, there are currently 372,933 unique words and names. For the names, I used the social security administration's records of names given at birth. **You can see the sources of the words and names below.**
+**I found great sources for all of the words in English.** From Google: "The Second Edition of the 20-volume Oxford English Dictionary contains full entries for 171,476 words in current use (and 47,156 obsolete words). Webster's Third New International Dictionary, Unabridged, together with its 1993 Addenda Section, includes some 470,000 entries." From the sources I've found, listed below, there are currently 372,933 unique words and names. For the names, I used the social security administration's records of names given at birth. **You can see the sources of the words and names below.**
 
 # Next steps
 
 1. Improve spell checker
-	i. refactor, packages, more robust code, etc
-2. Create a grammar checker
+i. refactor, packages, more robust code, etc
+1. Create a grammar checker
 
 This is all from chatGPT - for inspiration:
 
